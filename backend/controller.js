@@ -19,7 +19,7 @@ db.connect((err) => {
 exports.addName = (req, res) => {
   const { name, gender, language } = req.body;
   db.query(
-    "INSERT INTO baby_names (name, gender, language) VALUES (?, ?, ?)",
+    "INSERT INTO names (name, gender, language) VALUES (?, ?, ?)",
     [name, gender, language],
     (err, result) => {
       if (err) {
@@ -33,7 +33,7 @@ exports.addName = (req, res) => {
 };
 
 exports.getNames = (req, res) => {
-  db.query("SELECT * FROM baby_names", (err, results) => {
+  db.query("SELECT * FROM names", (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "DB Error" });
@@ -45,7 +45,7 @@ exports.getNames = (req, res) => {
 
 exports.deleteName = (req, res) => {
   const { id } = req.body;
-  db.query("DELETE FROM baby_names WHERE id = ?", [id], (err, result) => {
+  db.query("DELETE FROM names WHERE id = ?", [id], (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "DB Error" });
@@ -58,7 +58,7 @@ exports.deleteName = (req, res) => {
 exports.updateName = (req, res) => {
   const { id, name, gender, language } = req.body;
   db.query(
-    "UPDATE baby_names SET name = ?, gender = ?, language = ? WHERE id = ?",
+    "UPDATE names SET name = ?, gender = ?, language = ? WHERE id = ?",
     [name, gender, language, id],
     (err, result) => {
       if (err) {

@@ -14,7 +14,7 @@ function App() {
   }, []);
 
   const loadNames = async () => {
-    const res = await fetch("http://localhost:5000/api/name");
+    const res = await fetch("/api/name");
     const data = await res.json();
     setNames(data);
   };
@@ -24,14 +24,14 @@ function App() {
 
     if (form.id) {
       // עריכה → PUT
-      await fetch("http://localhost:5000/api/name", {
+      await fetch("/api/name", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
       });
     } else {
       // הוספה → POST
-      await fetch("http://localhost:5000/api/name", {
+      await fetch("/api/name", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -43,7 +43,7 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    await fetch("http://localhost:5000/api/name", {
+    await fetch("/api/name", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id })
