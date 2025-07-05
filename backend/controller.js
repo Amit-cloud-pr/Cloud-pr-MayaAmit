@@ -5,6 +5,7 @@ const db = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
+  port: 3306,
 });
 
 db.connect((err) => {
@@ -25,7 +26,7 @@ exports.addName = (req, res) => {
         console.error(err);
         res.status(500).json({ error: "DB Error" });
       } else {
-        res.json({ success: true });
+        res.json({ id: result.insertId });
       }
     }
   );
@@ -52,4 +53,20 @@ exports.deleteName = (req, res) => {
       res.json({ success: true });
     }
   });
+};
+
+exports.updateName = (req, res) => {
+  const { id, name, gender, language } = req.body;
+  db.query(
+    "UPDATE baby_names SET name = ?, gender = ?, language = ? WHERE id = ?",
+    [name, gender, language, id],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB Error" });
+      } else {
+        res.json({ success: true });
+      }
+    }
+  );
 };
