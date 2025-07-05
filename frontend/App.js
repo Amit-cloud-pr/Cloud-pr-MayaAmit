@@ -23,14 +23,14 @@ function App() {
     e.preventDefault();
 
     if (form.id) {
-      // עריכה
+      // עריכה → PUT
       await fetch("http://localhost:5000/api/name", {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
       });
     } else {
-      // הוספה
+      // הוספה → POST
       await fetch("http://localhost:5000/api/name", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
