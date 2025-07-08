@@ -57,17 +57,22 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-resource "aws_lb_listener" "static" {
-  load_balancer_arn = aws_lb_listener.http.arn
-  
-  port              = "80"
-  protocol          = "HTTP"
+resource "aws_lb_listener_rule" "static" {
+  listener_arn = aws_lb_listener.http.arn
+  priority     = 1
 
-  default_action {
+  action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.back.arn
   }
+
+  condition {
+    path_pattern {
+      values = ["/api/name/*"]
+    }
+  }
 }
+
 
 output "elb_dns_name" {
   value = aws_lb.myalb.dns_name

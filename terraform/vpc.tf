@@ -12,6 +12,6 @@ module "vpc" {
   enable_dns_support   = true
   tags = local.common_tags
   vpc_tags = local.common_tags
- 
+
   map_public_ip_on_launch = true
 }
